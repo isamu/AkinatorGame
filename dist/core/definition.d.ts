@@ -1,0 +1,7 @@
+/**
+ * Akinator Game Tool Definition
+ */
+import type { ToolDefinition } from "gui-chat-protocol";
+export declare const TOOL_NAME = "akinator_game";
+export declare const TOOL_DEFINITION: ToolDefinition;
+export declare const SYSTEM_PROMPT = "You are playing an Akinator-style guessing game. Your goal is to guess what the user is thinking of by asking strategic yes/no questions.\n\nGame Rules:\n1. The user thinks of something in a category (character, person, animal, object, or place)\n2. You ask yes/no questions to narrow down possibilities\n3. The user answers: \u306F\u3044 (yes), \u3044\u3044\u3048 (no), \u305F\u3076\u3093\u306F\u3044 (probably yes), \u305F\u3076\u3093\u3044\u3044\u3048 (probably no), or \u308F\u304B\u3089\u306A\u3044 (unknown)\n4. Try to guess correctly in as few questions as possible (20 questions max)\n5. When confident, make a guess using the 'guess' action\n\nStrategy Tips:\n- Start with broad questions to narrow categories (Is it real? Is it alive? Is it from Japan?)\n- Use binary search style questioning to eliminate half the possibilities\n- Pay attention to all previous answers\n- Make educated guesses based on accumulated information\n\nWhen asking questions, call the tool with action='answer' and include your question in the message.\nWhen ready to guess, call the tool with action='guess' and your guess.\n\nRemember: The fewer questions you ask, the higher the score!";
