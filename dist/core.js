@@ -1,6 +1,6 @@
-const d = "akinator_game", w = {
+const f = "akinator_game", w = {
   type: "function",
-  name: d,
+  name: f,
   description: "Play an Akinator-style guessing game. You ask yes/no questions to guess what the user is thinking of (a character, person, animal, object, or place). Try to guess in as few questions as possible!",
   parameters: {
     type: "object",
@@ -35,7 +35,7 @@ const d = "akinator_game", w = {
     },
     required: ["action"]
   }
-}, q = `You are playing an Akinator-style guessing game. Your goal is to guess what the user is thinking of by asking strategic yes/no questions.
+}, b = `You are playing an Akinator-style guessing game. Your goal is to guess what the user is thinking of by asking strategic yes/no questions.
 
 Game Rules:
 1. The user thinks of something in a category (character, person, animal, object, or place)
@@ -53,7 +53,7 @@ Strategy Tips:
 When asking questions, call the tool with action='answer' and include your question in the message.
 When ready to guess, call the tool with action='guess' and your guess.
 
-Remember: The fewer questions you ask, the higher the score!`, b = [
+Remember: The fewer questions you ask, the higher the score!`, q = [
   {
     name: "キャラクター",
     args: {
@@ -117,7 +117,14 @@ Remember: The fewer questions you ask, the higher the score!`, b = [
       case "start": {
         if (!l)
           throw new Error("Category is required to start the game");
-        e = k(l), r = `Game started! Category: ${m(l)}. Ask your first yes/no question to start narrowing down. Use broad questions first (e.g., "Is it a real person?" or "Is it from Japan?"). After asking, call the tool with action='answer' to record the user's response.`, a = ["Ask a yes/no question, then call with action='answer' when user responds"];
+        e = k(l), r = `Game started! Category: ${m(l)}. Ask your first yes/no question to start narrowing down. Use broad questions first (e.g., "Is it a real person?" or "Is it from Japan?").
+
+When the user responds, call the tool with action='answer' and map their response:
+- "はい" → answer="yes"
+- "いいえ" → answer="no"
+- "たぶんはい" → answer="probably_yes"
+- "たぶんいいえ" → answer="probably_no"
+- "わからない" → answer="unknown"`, a = ["Ask a yes/no question, then call with action='answer' when user responds"];
         break;
       }
       case "answer": {
@@ -141,13 +148,13 @@ Remember: The fewer questions you ask, the higher the score!`, b = [
         if (e.message = `📝 回答: ${o} (質問 ${e.questionCount}/${e.maxQuestions})`, e.questionCount >= e.maxQuestions)
           e.phase = "guessing", r = `You've reached the maximum ${e.maxQuestions} questions! Based on all the answers, make your best guess now using action='guess'.`, a = ["guess"];
         else {
-          const p = e.qaHistory.map((y, f) => `Q${f + 1}: ${y.question} → ${y.answer}`).join(`
+          const p = e.qaHistory.map((y, d) => `Q${d + 1}: ${y.question} → ${y.answer}`).join(`
 `);
           r = `Answer recorded: ${i}. Question history:
 ${p}
 
 Analyze all answers and either:
-1. Ask another strategic question (then call action='answer' when user responds)
+1. Ask another strategic question (then call action='answer' when user responds with はい/いいえ/たぶんはい/たぶんいいえ/わからない → yes/no/probably_yes/probably_no/unknown)
 2. If confident, make a guess with action='guess'`, a = ["Ask another question", "guess"];
         }
         break;
@@ -208,14 +215,14 @@ Analyze all answers and either:
   execute: $,
   generatingMessage: "🔮 考え中...",
   isEnabled: () => !0,
-  samples: b,
-  systemPrompt: q
+  samples: q,
+  systemPrompt: b
 };
 export {
-  b as SAMPLES,
-  q as SYSTEM_PROMPT,
+  q as SAMPLES,
+  b as SYSTEM_PROMPT,
   w as TOOL_DEFINITION,
-  d as TOOL_NAME,
+  f as TOOL_NAME,
   $ as executeAkinator,
   C as pluginCore
 };
