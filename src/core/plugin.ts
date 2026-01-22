@@ -64,7 +64,14 @@ export const executeAkinator = async (
           throw new Error("Category is required to start the game");
         }
         state = createInitialState(category);
-        instructions = `Game started! Category: ${getCategoryName(category)}. Ask your first yes/no question to start narrowing down. Use broad questions first (e.g., "Is it a real person?" or "Is it from Japan?"). After asking, call the tool with action='answer' to record the user's response.`;
+        instructions = `Game started! Category: ${getCategoryName(category)}. Ask your first yes/no question to start narrowing down. Use broad questions first (e.g., "Is it a real person?" or "Is it from Japan?").
+
+When the user responds, call the tool with action='answer' and map their response:
+- "はい" → answer="yes"
+- "いいえ" → answer="no"
+- "たぶんはい" → answer="probably_yes"
+- "たぶんいいえ" → answer="probably_no"
+- "わからない" → answer="unknown"`;
         availableActions = ["Ask a yes/no question, then call with action='answer' when user responds"];
         break;
       }
@@ -104,7 +111,7 @@ export const executeAkinator = async (
           const historyText = state.qaHistory
             .map((qa, i) => `Q${i + 1}: ${qa.question} → ${qa.answer}`)
             .join("\n");
-          instructions = `Answer recorded: ${answer}. Question history:\n${historyText}\n\nAnalyze all answers and either:\n1. Ask another strategic question (then call action='answer' when user responds)\n2. If confident, make a guess with action='guess'`;
+          instructions = `Answer recorded: ${answer}. Question history:\n${historyText}\n\nAnalyze all answers and either:\n1. Ask another strategic question (then call action='answer' when user responds with はい/いいえ/たぶんはい/たぶんいいえ/わからない → yes/no/probably_yes/probably_no/unknown)\n2. If confident, make a guess with action='guess'`;
           availableActions = ["Ask another question", "guess"];
         }
         break;

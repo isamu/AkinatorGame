@@ -16,6 +16,7 @@ export const loadApiKey = (): string => {
  * Default mock responses for development without API key
  */
 export const DEFAULT_MOCK_RESPONSES: Record<string, MockResponse> = {
+  // Category selections
   character: {
     toolCall: {
       name: "akinator_game",
@@ -61,6 +62,52 @@ export const DEFAULT_MOCK_RESPONSES: Record<string, MockResponse> = {
       },
     },
   },
+  // Answer responses (for mock mode testing)
+  answer_yes: {
+    toolCall: {
+      name: "akinator_game",
+      args: {
+        action: "answer",
+        answer: "yes",
+      },
+    },
+  },
+  answer_no: {
+    toolCall: {
+      name: "akinator_game",
+      args: {
+        action: "answer",
+        answer: "no",
+      },
+    },
+  },
+  answer_probably_yes: {
+    toolCall: {
+      name: "akinator_game",
+      args: {
+        action: "answer",
+        answer: "probably_yes",
+      },
+    },
+  },
+  answer_probably_no: {
+    toolCall: {
+      name: "akinator_game",
+      args: {
+        action: "answer",
+        answer: "probably_no",
+      },
+    },
+  },
+  answer_unknown: {
+    toolCall: {
+      name: "akinator_game",
+      args: {
+        action: "answer",
+        answer: "unknown",
+      },
+    },
+  },
   hello: {
     content: "こんにちは！アキネイターで遊びましょう！\n\n🔮 カテゴリを選んでください:\n- キャラクター\n- 有名人\n- 動物\n- もの\n- 場所",
   },
@@ -77,6 +124,24 @@ export const findMockResponse = (
   mockResponses: Record<string, MockResponse> = DEFAULT_MOCK_RESPONSES
 ): MockResponse => {
   const lowerMessage = userMessage.toLowerCase();
+  const trimmedMessage = userMessage.trim();
+
+  // Answer keywords (exact match for button clicks)
+  if (trimmedMessage === "はい" || lowerMessage === "yes") {
+    return mockResponses.answer_yes || DEFAULT_MOCK_RESPONSES.answer_yes;
+  }
+  if (trimmedMessage === "いいえ" || lowerMessage === "no") {
+    return mockResponses.answer_no || DEFAULT_MOCK_RESPONSES.answer_no;
+  }
+  if (trimmedMessage === "たぶんはい" || lowerMessage === "probably yes") {
+    return mockResponses.answer_probably_yes || DEFAULT_MOCK_RESPONSES.answer_probably_yes;
+  }
+  if (trimmedMessage === "たぶんいいえ" || lowerMessage === "probably no") {
+    return mockResponses.answer_probably_no || DEFAULT_MOCK_RESPONSES.answer_probably_no;
+  }
+  if (trimmedMessage === "わからない" || lowerMessage === "unknown") {
+    return mockResponses.answer_unknown || DEFAULT_MOCK_RESPONSES.answer_unknown;
+  }
 
   // Category keywords
   if (lowerMessage.includes("キャラクター") || lowerMessage.includes("character")) {
