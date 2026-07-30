@@ -5,8 +5,8 @@ import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  root: resolve(__dirname, "demo/react"),
-  envDir: resolve(__dirname),
+  root: resolve(import.meta.dirname, "demo/react"),
+  envDir: resolve(import.meta.dirname),
   // Allow imports from root directory (src/, demo/shared/)
   server: {
     fs: {

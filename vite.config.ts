@@ -6,14 +6,14 @@ import { resolve } from "path";
 
 export default defineConfig({
   plugins: [vue(), react(), tailwindcss()],
-  envDir: resolve(__dirname),
+  envDir: resolve(import.meta.dirname),
   build: {
     lib: {
       entry: {
-        index: resolve(__dirname, "src/index.ts"),
-        core: resolve(__dirname, "src/core/index.ts"),
-        vue: resolve(__dirname, "src/vue/index.ts"),
-        react: resolve(__dirname, "src/react/index.ts"),
+        index: resolve(import.meta.dirname, "src/index.ts"),
+        core: resolve(import.meta.dirname, "src/core/index.ts"),
+        vue: resolve(import.meta.dirname, "src/vue/index.ts"),
+        react: resolve(import.meta.dirname, "src/react/index.ts"),
       },
       name: "MulmoChatPlugin",
       formats: ["es", "cjs"],
