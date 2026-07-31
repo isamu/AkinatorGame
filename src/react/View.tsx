@@ -208,5 +208,3 @@ export function View({ selectedResult, sendTextMessage }: ViewProps) {
     </div>
   );
 }
-
-export default View;

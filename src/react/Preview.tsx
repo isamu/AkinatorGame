@@ -62,5 +62,3 @@ export function Preview({ result }: PreviewProps) {
     </div>
   );
 }
-
-export default Preview;

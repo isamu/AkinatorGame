@@ -1,0 +1,25 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  // App entry points are auto-detected: the root index.html (-> demo/vue/main.ts), the React
+  // demo's demo/react/index.html (-> demo/react/main.tsx), and the four library entries in
+  // vite.config.ts's build.lib.entry (src/{index,core/index,vue/index,react/index}.ts). There
+  // are no test globs, so no explicit "entry" is listed.
+  "project": ["src/**/*.{ts,tsx,vue}", "demo/**/*.{ts,tsx,vue}"],
+  "ignoreExportsUsedInFile": true,
+  "includeEntryExports": false,
+  "rules": {
+    // Warn mode: every rule is "warn" (reported, exit 0) or "off". Nothing gates CI here.
+    "files": "warn",
+    "dependencies": "warn",
+    "devDependencies": "warn",
+    "unlisted": "warn",
+    "exports": "warn",
+    "types": "warn",
+    "unresolved": "off",
+    "binaries": "off",
+    "nsExports": "off",
+    "nsTypes": "off",
+    "enumMembers": "off",
+    "duplicates": "off",
+  },
+}
