@@ -43,14 +43,17 @@ const calculateScore = (questionCount: number, wasCorrect: boolean): number => {
 // Execute Function
 // ============================================================================
 
+// context is nullable on purpose: hosts that run the plugin without client-side
+// state (MulmoClaude's server bridge) pass an empty or missing context, and
+// reading through it unguarded threw a TypeError instead of returning a result.
 export const executeAkinator = async (
-  context: ToolContext,
+  context: ToolContext | null | undefined,
   args: AkinatorArgs,
 ): Promise<ToolResult<AkinatorData, AkinatorJsonData>> => {
   const { action, category, answer, guess, wasCorrect, actualAnswer } = args;
 
   // Get current state from context if available
-  const currentResult = context.currentResult as ToolResult<AkinatorData, AkinatorJsonData> | null;
+  const currentResult = context?.currentResult as ToolResult<AkinatorData, AkinatorJsonData> | null;
   const prevState = currentResult?.data?.state;
 
   try {
