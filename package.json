@@ -1,6 +1,6 @@
 {
   "name": "guichat-plugin-akinator",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Akinator-style guessing game - AI asks questions to guess what you're thinking",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -94,7 +94,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "gui-chat-protocol": "^1.2.0",
+    "gui-chat-protocol": "^2.0.0",
     "openai": "^4.104.0"
   }
 }
