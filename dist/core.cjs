@@ -1,0 +1,1 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require("./plugin-BFoyd3Bb.cjs");exports.SAMPLES=e.r,exports.SYSTEM_PROMPT=e.i,exports.TOOL_DEFINITION=e.a,exports.TOOL_NAME=e.o,exports.executeAkinator=e.t,exports.pluginCore=e.n;
