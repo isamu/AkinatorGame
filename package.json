@@ -96,5 +96,8 @@
   "dependencies": {
     "gui-chat-protocol": "^2.3.0",
     "openai": "^4.104.0"
+  },
+  "resolutions": {
+    "minimatch": "^11.0.5"
   }
 }
